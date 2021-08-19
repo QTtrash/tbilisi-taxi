@@ -45,16 +45,16 @@ export default {
       items: [
         {
           icon: 'mdi-apps',
-          title: 'Welcome',
+          title: 'მთავარი',
           to: '/',
         },
         {
           icon: 'mdi-chart-bubble',
-          title: 'Registration',
+          title: 'რეგისტრაცია',
           to: '/registration',
         },
       ],
-      title: 'Tbilisi Taxi',
+      title: 'Yandex Taxi',
     }
   },
 }

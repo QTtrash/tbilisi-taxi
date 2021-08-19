@@ -3,16 +3,14 @@
     <v-row justify="center" align="center">
       <v-col cols="12" sm="8" md="6">
         <v-card>
-          <v-card-title class="headline">
-            Zdarova, sheeeech tut budet zaglavie
-          </v-card-title>
+          <v-card-title class="headline"> Yandex Taxi </v-card-title>
           <v-card-text>
             <p>Tut budet tesli opisanie</p>
           </v-card-text>
           <v-card-actions>
             <v-spacer />
             <v-btn color="yellow" style="color: black" nuxt to="/registration">
-              Knopka s kakim textom?
+              რეგისტრაცია
             </v-btn>
           </v-card-actions>
         </v-card>
