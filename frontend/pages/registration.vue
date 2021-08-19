@@ -79,7 +79,9 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn color="yellow" style="color: black" nuxt> გაგზავნა </v-btn>
+            <v-btn color="yellow" style="color: black" @click="sendUserInfo">
+              გაგზავნა
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -88,6 +90,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'Registration',
   data() {
@@ -104,6 +108,37 @@ export default {
       carId: '',
       city: '',
     }
+  },
+  methods: {
+    async sendUserInfo() {
+      const headers = {
+        'Content-Type': 'application/json',
+      }
+
+      await axios
+        .post(
+          'https://taxi-tbilisi-backend.herokuapp.com/users',
+          {
+            fullname: this.fullname,
+            phoneNumber: this.phoneNumber,
+            passNumber: this.passNumber,
+            passRegDate: this.passRegDate,
+            passValidDate: this.passValidDate,
+            car: this.car,
+            carModel: this.carModel,
+            carColor: this.carColor,
+            carDate: this.carDate,
+            carId: this.carId,
+            city: this.city,
+          },
+          {
+            headers,
+          }
+        )
+        .then((res) => {
+          this.$router.push({ path: 'complete' })
+        })
+    },
   },
 }
 </script>

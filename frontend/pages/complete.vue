@@ -1,15 +1,15 @@
 <template>
-  <div class="background-image">
+  <div class="complete-image">
     <v-row justify="center" align="center">
       <v-col cols="12" sm="8" md="6">
         <v-card>
-          <v-card-title class="headline"> Yandex Taxi </v-card-title>
+          <v-card-title class="headline">
+            გმადლობთ რეგისტრაციისთვის, ჩვენ მალე დაგიკავშირდებით!
+          </v-card-title>
           <v-card-text> </v-card-text>
+
           <v-card-actions>
             <v-spacer />
-            <v-btn color="yellow" style="color: black" nuxt to="/registration">
-              რეგისტრაცია
-            </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -18,8 +18,8 @@
 </template>
 
 <style>
-.background-image {
-  background-image: url('/background.jpeg');
+.complete-image {
+  background-image: url('/background-reg.jpeg');
   background-position: center;
   background-size: cover;
   height: 85vh;
