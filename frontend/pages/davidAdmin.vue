@@ -9,6 +9,17 @@
             :items-per-page="5"
             class="elevation-1"
           ></v-data-table>
+          <v-card-actions>
+            <diamond v-if="loading" />
+            <v-spacer />
+            <v-card-text v-if="loading"> გთხოვთ დაელოდოთ </v-card-text>
+            <v-spacer />
+            <v-card-text v-if="error">
+              Please contact our lovely developer <br />
+              @ Pornhub (special clients only) @ Facebook (friends only) @
+              smouchsiadis@gmail.com
+            </v-card-text>
+          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
@@ -17,13 +28,19 @@
 
 <script>
 import axios from 'axios'
+import { Diamond } from 'vue-loading-spinner'
 
 export default {
-  name: 'Registration',
+  name: 'DavidAdmin',
+  components: {
+    Diamond,
+  },
   data() {
     return {
+      loading: true,
+      error: false,
       headers: [
-        { text: 'სახელი', value: 'fullname' },
+        { text: 'სახელი და გვარი', value: 'fullname' },
         { text: 'მობილურის ნომერი', value: 'phonenumber' },
         { text: 'მართვის მოწმობის სერია და ნომერი', value: 'passnumber' },
         { text: 'მართვის მოწმობის აღების თარიღი', value: 'passregdate' },
@@ -36,17 +53,6 @@ export default {
         { text: 'ავტომობილის სახელმწოფო ნომერი', value: 'carid' },
         { text: 'ქალაქი', value: 'city' },
       ],
-      fullname: '',
-      phoneNumber: '',
-      passNumber: '',
-      passRegDate: '',
-      passValidDate: '',
-      car: '',
-      carModel: '',
-      carColor: '',
-      carDate: '',
-      carId: '',
-      city: '',
       clients: [],
     }
   },
@@ -55,11 +61,21 @@ export default {
   },
   methods: {
     async getUserInfo() {
+      this.loading = true
+      this.error = false
+
       await axios
         .get('https://taxi-tbilisi-backend.herokuapp.com/users')
         .then((res) => {
           const { data } = res
+          this.loading = false
+          this.error = false
           this.clients = data
+        })
+        .catch((error) => {
+          this.error = true
+          this.loading = false
+          throw error
         })
     },
   },

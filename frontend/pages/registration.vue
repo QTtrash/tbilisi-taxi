@@ -13,6 +13,13 @@
           </v-card-text>
           <v-card-text>
             <v-text-field
+              v-model="fullname"
+              color="yellow"
+              label="დაბადების თარიღი"
+            />
+          </v-card-text>
+          <v-card-text>
+            <v-text-field
               v-model="phoneNumber"
               color="yellow"
               label="მობილურის ნომერი"
@@ -78,8 +85,21 @@
             <v-text-field v-model="city" color="yellow" label="ქალაქი" />
           </v-card-text>
           <v-card-actions>
+            <diamond v-if="loading" />
             <v-spacer />
-            <v-btn color="yellow" style="color: black" @click="sendUserInfo">
+            <v-card-text v-if="loading"> გთხოვთ დაელოდოთ </v-card-text>
+            <v-spacer />
+            <v-card-text v-if="error">
+              გთხოვთ დაუკავშირდეთ ჩვენს წარმომადგენელს <br />
+              +995 597037341
+            </v-card-text>
+            <v-spacer />
+            <v-btn
+              color="yellow"
+              :disabled="loading"
+              style="color: black"
+              @click="sendUserInfo"
+            >
               გაგზავნა
             </v-btn>
           </v-card-actions>
@@ -91,12 +111,19 @@
 
 <script>
 import axios from 'axios'
+import { Diamond } from 'vue-loading-spinner'
 
 export default {
   name: 'Registration',
+  components: {
+    Diamond,
+  },
   data() {
     return {
+      loading: false,
+      error: false,
       fullname: '',
+      birthday: '',
       phoneNumber: '',
       passNumber: '',
       passRegDate: '',
@@ -115,11 +142,15 @@ export default {
         'Content-Type': 'application/json',
       }
 
+      this.loading = true
+      this.error = false
+
       await axios
         .post(
           'https://taxi-tbilisi-backend.herokuapp.com/users',
           {
             fullname: this.fullname,
+            birthday: this.birthday,
             phoneNumber: this.phoneNumber,
             passNumber: this.passNumber,
             passRegDate: this.passRegDate,
@@ -136,7 +167,14 @@ export default {
           }
         )
         .then((res) => {
+          this.router = false
+          this.error = false
           this.$router.push({ path: 'complete' })
+        })
+        .catch((error) => {
+          this.error = true
+          this.loading = false
+          throw error
         })
     },
   },
