@@ -13,7 +13,7 @@
           </v-card-text>
           <v-card-text>
             <v-text-field
-              v-model="fullname"
+              v-model="birthday"
               color="yellow"
               label="დაბადების თარიღი"
             />
