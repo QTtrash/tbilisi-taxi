@@ -41,6 +41,7 @@ export default {
       error: false,
       headers: [
         { text: 'სახელი და გვარი', value: 'fullname' },
+        { text: 'დაბადების თარიღი', value: 'birthday' },
         { text: 'მობილურის ნომერი', value: 'phonenumber' },
         { text: 'მართვის მოწმობის სერია და ნომერი', value: 'passnumber' },
         { text: 'მართვის მოწმობის აღების თარიღი', value: 'passregdate' },
